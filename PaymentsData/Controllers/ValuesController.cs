@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Microsoft.AspNet.Identity;
 
 namespace PaymentsData.Controllers
 {
@@ -13,7 +14,17 @@ namespace PaymentsData.Controllers
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            var userId = RequestContext.Principal.Identity.GetUserId();
+            
+            return new string[] { userId };
+            //return new string[] { "value1", "value2" };
+        }
+        // GET api/values
+        public IHttpActionResult GetMyUserId()
+        {
+            return Ok( new string[] {
+                RequestContext.Principal.Identity.GetUserId() }
+            );
         }
 
         // GET api/values/5
