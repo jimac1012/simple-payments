@@ -65,4 +65,9 @@
   <ItemGroup>
     <None Include="PublishLocations\PaymentsDatabase.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\Account.sql" />
+    <Build Include="dbo\Tables\Transaction.sql" />
+  </ItemGroup>
 </Project>
