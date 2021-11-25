@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsData", "PaymentsData\PaymentsData.csproj", "{21DBEBAD-D0FC-4A37-A664-AA06944664C1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentsWeb", "PaymentsData\PaymentsWeb.csproj", "{21DBEBAD-D0FC-4A37-A664-AA06944664C1}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "PaymentsDatabase", "PaymentsDatabase\PaymentsDatabase.sqlproj", "{59F6969F-1121-4BBA-A4A2-CC5C01492BD7}"
 EndProject
