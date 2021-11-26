@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace PaymentsData.Areas.HelpPage.ModelDescriptions
+namespace PaymentsWeb.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

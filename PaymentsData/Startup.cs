@@ -4,9 +4,9 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartup(typeof(PaymentsData.Startup))]
+[assembly: OwinStartup(typeof(PaymentsWeb.Startup))]
 
-namespace PaymentsData
+namespace PaymentsWeb
 {
     public partial class Startup
     {

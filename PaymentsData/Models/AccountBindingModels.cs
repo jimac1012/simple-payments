@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 
-namespace PaymentsData.Models
+namespace PaymentsWeb.Models
 {
     // Models used as parameters to AccountController actions.
 
@@ -35,7 +35,7 @@ namespace PaymentsData.Models
     public class RegisterBindingModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Email Address")]
         public string Email { get; set; }
 
         [Required]
@@ -48,6 +48,14 @@ namespace PaymentsData.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
     }
 
     public class RegisterExternalBindingModel

@@ -1,6 +1,6 @@
 using System;
 
-namespace PaymentsData.Areas.HelpPage.ModelDescriptions
+namespace PaymentsWeb.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

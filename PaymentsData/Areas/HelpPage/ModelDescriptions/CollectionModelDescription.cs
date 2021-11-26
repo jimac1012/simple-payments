@@ -1,4 +1,4 @@
-namespace PaymentsData.Areas.HelpPage.ModelDescriptions
+namespace PaymentsWeb.Areas.HelpPage.ModelDescriptions
 {
     public class CollectionModelDescription : ModelDescription
     {

@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using PaymentsData.Areas.HelpPage.ModelDescriptions;
-using PaymentsData.Areas.HelpPage.Models;
+using PaymentsWeb.Areas.HelpPage.ModelDescriptions;
+using PaymentsWeb.Areas.HelpPage.Models;
 
-namespace PaymentsData.Areas.HelpPage
+namespace PaymentsWeb.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

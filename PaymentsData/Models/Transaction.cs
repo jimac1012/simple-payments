@@ -6,8 +6,6 @@ namespace PaymentsWeb.Models
     {
         public int Id { get; set; }
 
-        public int AccountId { get; set; }
-
         public string Status { get; set; }
 
         public decimal Amount { get; set; }
@@ -19,5 +17,9 @@ namespace PaymentsWeb.Models
         public DateTime DateCreated { get; set; }
 
         public DateTime TransactionDate { get; set; }
+
+        public int AccountId { get; set; }
+
+        public Account Account { get; set; }
     }
 }

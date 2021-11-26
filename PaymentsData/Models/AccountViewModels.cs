@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PaymentsData.Models
+namespace PaymentsWeb.Models
 {
     // Models returned by AccountController actions.
 

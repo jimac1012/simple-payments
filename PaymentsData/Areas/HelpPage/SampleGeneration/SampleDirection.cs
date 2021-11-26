@@ -1,4 +1,4 @@
-namespace PaymentsData.Areas.HelpPage
+namespace PaymentsWeb.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

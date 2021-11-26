@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using PaymentsData.Areas.HelpPage.ModelDescriptions;
-using PaymentsData.Areas.HelpPage.Models;
+using PaymentsWeb.Areas.HelpPage.ModelDescriptions;
+using PaymentsWeb.Areas.HelpPage.Models;
 
-namespace PaymentsData.Areas.HelpPage.Controllers
+namespace PaymentsWeb.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

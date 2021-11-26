@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace PaymentsData.Areas.HelpPage
+namespace PaymentsWeb.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {
