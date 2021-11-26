@@ -9,7 +9,7 @@ using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Web.Providers;
-using Web.Models;
+using Web.Models.Base;
 
 namespace Web
 {
