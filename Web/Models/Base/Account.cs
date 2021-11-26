@@ -7,6 +7,11 @@ namespace Web.Models.Base
 {
     public class Account
     {
+        public Account()
+        {
+            DateCreated = DateTime.UtcNow;
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
