@@ -21,5 +21,7 @@ namespace Web.Data
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
+
+        public DbSet<Account> Accounts { get; set; }
     }
 }
