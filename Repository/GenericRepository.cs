@@ -1,10 +1,7 @@
 ﻿using Domain;
 using Repository.Interfaces;
-using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -36,6 +33,7 @@ namespace Repository
         void IGenericRepository<T>.Update(T entity)
         {
             _context.Set<T>().Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

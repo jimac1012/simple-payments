@@ -44,6 +44,8 @@
     <Compile Include="AccountModel.cs" />
     <Compile Include="AppUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionalModel.cs" />
+    <Compile Include="TransactionModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -229,8 +229,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Controllers\AccountsController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AppUserController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -238,6 +239,7 @@
     </Compile>
     <Compile Include="Models\Base\AccountBindingModels.cs" />
     <Compile Include="Models\Base\AccountViewModels.cs" />
+    <Compile Include="Models\Base\TransactionViewModels.cs" />
     <Compile Include="Models\Base\UserViewModels.cs" />
     <Compile Include="Models\Base\AppUserViewModels.cs" />
     <Compile Include="Models\Base\IdentityModels.cs" />
@@ -304,6 +306,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Transaction\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

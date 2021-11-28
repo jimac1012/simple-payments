@@ -9,11 +9,11 @@ namespace Web.Controllers
 {
     //[Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountsController : ApiController
+    public class AccountController : ApiController
     {
         private IAccountLogic AccountLogic { get; }
 
-        public AccountsController(IAccountLogic logic)
+        public AccountController(IAccountLogic logic)
         {
             AccountLogic = logic;
         }

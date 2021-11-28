@@ -53,6 +53,7 @@ namespace Web
             container.RegisterType(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             container.RegisterType<IAppUserLogic, AppUserLogic>();
             container.RegisterType<IAccountLogic, AccountLogic>();
+            container.RegisterType<ITransactionLogic, TransactionLogic>();
 
 
             //DependencyResolver.SetResolver(new Unity.Mvc.UnityDependencyResolver(container));

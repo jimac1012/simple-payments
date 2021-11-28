@@ -112,10 +112,10 @@ namespace Application
                     Type = model.Type,
                     UserId = model.UserId
                 };
-                Repository.Add(account);
 
                 try
                 {
+                    Repository.Add(account);
                     UnitOfWork.Save();
                     result.TransactionSuccess();
                 }

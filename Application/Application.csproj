@@ -45,7 +45,9 @@
     <Compile Include="AppUserLogic.cs" />
     <Compile Include="Interfaces\IAccountLogic.cs" />
     <Compile Include="Interfaces\IAppUserLogic.cs" />
+    <Compile Include="Interfaces\ITransactionLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionLogic.cs" />
     <Compile Include="TransactionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
