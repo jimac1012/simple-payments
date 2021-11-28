@@ -108,7 +108,6 @@ namespace Application
                 Account account = new Account()
                 {
                     Name = model.AccountName.ToUpper(),
-                    Balance = model.Balance,
                     Type = model.Type,
                     UserId = model.UserId
                 };

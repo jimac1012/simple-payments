@@ -61,7 +61,7 @@ namespace Application
                 var transaction = SaveTransaction(model, "Credit");
                 TransactionRepository.Add(transaction);
 
-                account.Balance += transaction.Amount;
+                account.AddBalance(transaction.Amount);
                 AccountRepository.Update(account);
                 UnitOfWork.Save();
                 result.TransactionSuccess();
@@ -92,7 +92,7 @@ namespace Application
                     var transaction = SaveTransaction(model, "Debit");
                     TransactionRepository.Add(transaction);
 
-                    account.Balance -= (transaction.Amount + transaction.TransactionFee ?? 0);
+                    account.DeductBalance(transaction.Amount + transaction.TransactionFee ?? 0);
                     AccountRepository.Update(account);
                     UnitOfWork.Save();
                     result.TransactionSuccess();

@@ -11,6 +11,7 @@ namespace Domain
         public Account()
         {
             DateCreated = DateTime.UtcNow;
+            Balance = 0;
             Transactions = new HashSet<Transaction>();
         }
 
@@ -28,7 +29,7 @@ namespace Domain
         public DateTime DateCreated { get; set; }
 
         [Column(TypeName = "money")]
-        public decimal Balance { get; set; }
+        public decimal Balance { get; private set; }
 
         public int UserId { get; set; }
 
@@ -36,5 +37,15 @@ namespace Domain
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+
+        public void AddBalance(decimal amount)
+        {
+            Balance += amount;
+        }
+
+        public void DeductBalance(decimal amount)
+        {
+            Balance -= amount;
+        }
     }
 }
