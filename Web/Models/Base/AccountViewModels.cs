@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Web.Models.Base
+﻿namespace Web.Models.Base
 {
     public class AccountCreationBindingModel
     {
         public int UserId { get; set; }
 
         public string AccountName { get; set; }
-
-        public decimal Balance { get; set; }
     }
 
     public class GetUserAccountList

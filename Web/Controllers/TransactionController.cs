@@ -7,6 +7,7 @@ using Web.Models.Base;
 
 namespace Web.Controllers
 {
+    //[Authorize]
     [RoutePrefix("api/Transaction")]
     public class TransactionController : ApiController
     {

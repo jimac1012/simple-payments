@@ -5,8 +5,6 @@ using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application
 {
@@ -122,6 +120,7 @@ namespace Application
                     Amount = x.Amount,
                     Status = x.Status,
                     TransactionFee = x.TransactionFee,
+                    TransactionType = x.TransactionType,
                     Note = x.Note
                 }
             ).ToList();

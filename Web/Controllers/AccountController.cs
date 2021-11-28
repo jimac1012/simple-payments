@@ -30,7 +30,6 @@ namespace Web.Controllers
                 {
                     UserId = model.UserId,
                     AccountName = model.AccountName,
-                    Balance = model.Balance,
                     Type = "Savings"
                 });
 

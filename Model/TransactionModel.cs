@@ -4,13 +4,13 @@ namespace Model
 {
     public class TransactionModel
     {
-        public int Id { get; set; }
-
         public DateTime TransactionDate { get; set; }
 
         public decimal Amount { get; set; }
 
         public decimal? TransactionFee { get; set; }
+
+        public string TransactionType { get; set; }
 
         public string Status { get; set; }
 
