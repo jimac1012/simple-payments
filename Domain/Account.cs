@@ -11,6 +11,7 @@ namespace Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Account()
         {
+            DateCreated = DateTime.UtcNow;
             Transactions = new HashSet<Transaction>();
         }
 
