@@ -25,14 +25,17 @@ namespace Web.Controllers
 
             try
             {
-                AppUserLogic.Save(new AppUserModel()
+                var result = AppUserLogic.Save(new AppUserModel()
                 {
                     EmailAddress = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName
                 });
 
-                return Ok();
+                if (result.IsSuccess)
+                    return Ok();
+                else
+                    return BadRequest(result.Message);
             }
             catch (Exception ex)
             {
@@ -44,6 +47,10 @@ namespace Web.Controllers
         public AppUserModel GetInfo(GetInfoBindingModel model)
         {
             var user = AppUserLogic.GetByEmailAddress(model.EmailAddress);
+
+            if (user == null)
+                return null;
+
             return new AppUserModel()
             {
                 Id = user.Id,

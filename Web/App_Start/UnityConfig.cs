@@ -52,6 +52,7 @@ namespace Web
             container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
             container.RegisterType(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             container.RegisterType<IAppUserLogic, AppUserLogic>();
+            container.RegisterType<IAccountLogic, AccountLogic>();
 
 
             //DependencyResolver.SetResolver(new Unity.Mvc.UnityDependencyResolver(container));

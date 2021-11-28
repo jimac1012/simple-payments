@@ -238,6 +238,7 @@
     </Compile>
     <Compile Include="Models\Base\AccountBindingModels.cs" />
     <Compile Include="Models\Base\AccountViewModels.cs" />
+    <Compile Include="Models\Base\UserViewModels.cs" />
     <Compile Include="Models\Base\AppUserViewModels.cs" />
     <Compile Include="Models\Base\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -303,7 +304,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Manager\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

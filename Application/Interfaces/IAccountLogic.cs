@@ -1,12 +1,15 @@
 ﻿using Model;
+using System.Collections.Generic;
 
 namespace Application.Interfaces
 {
     public interface IAccountLogic
     {
-        AccountModel GetUserAccount(int id);
+        AccountModel GetAccount(int id);
 
-        void Save(AccountModel model);
+        List<AccountModel> GetUserAccounts(int userId);
+
+        TransactionStatus Save(AccountModel model);
 
         void Dispose();
     }

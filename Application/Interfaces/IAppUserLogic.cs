@@ -6,9 +6,7 @@ namespace Application.Interfaces
     {
         AppUserModel GetByEmailAddress(string emailAddress);
 
-        AppUserModel Get(int id);
-
-        void Save(AppUserModel userModel);
+        TransactionStatus Save(AppUserModel userModel);
 
         void Dispose();
     }

@@ -1,43 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Web.Models.Base
 {
-    // Models returned by AccountController actions.
-
-    public class ExternalLoginViewModel
+    public class AccountCreationBindingModel
     {
-        public string Name { get; set; }
+        public int UserId { get; set; }
 
-        public string Url { get; set; }
+        public string AccountName { get; set; }
 
-        public string State { get; set; }
+        public decimal Balance { get; set; }
     }
 
-    public class ManageInfoViewModel
+    public class GetUserAccountList
     {
-        public string LocalLoginProvider { get; set; }
-
-        public string Email { get; set; }
-
-        public IEnumerable<UserLoginInfoViewModel> Logins { get; set; }
-
-        public IEnumerable<ExternalLoginViewModel> ExternalLoginProviders { get; set; }
+        public int UserId { get; set; }
     }
 
-    public class UserInfoViewModel
+    public class AccountTransaction
     {
-        public string Email { get; set; }
+        public int UserId { get; set; }
 
-        public bool HasRegistered { get; set; }
+        public int AccountId { get; set; }
 
-        public string LoginProvider { get; set; }
-    }
-
-    public class UserLoginInfoViewModel
-    {
-        public string LoginProvider { get; set; }
-
-        public string ProviderKey { get; set; }
+        public decimal Amount { get; set; }
     }
 }

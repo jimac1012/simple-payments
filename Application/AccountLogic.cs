@@ -2,6 +2,7 @@
 using Domain;
 using Model;
 using Repository.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,7 +32,7 @@ namespace Application
                 .Select(x => new AccountModel()
                     {
                         Id = x.Id,
-                        Name = x.Name,
+                        AccountName = x.Name,
                         Balance = x.Balance,
                         Type = x.Type,
                         UserId = userId
@@ -39,7 +40,26 @@ namespace Application
                 ).ToList();
         }
 
-        public AccountModel GetUserAccount(int id)
+        public List<AccountModel> GetUserAccounts(int userId)
+        {
+            if (!Repository.GetAll().Any(x => x.UserId == userId))
+                throw new Exception("User does not exists.");
+
+            var userAccounts = Repository.GetAll()
+                .Where(x => x.UserId == userId)
+                .Select(x => new AccountModel()
+                {
+                    Id = x.Id,
+                    AccountName = x.Name,
+                    Balance = x.Balance,
+                    Type = x.Type,
+                    UserId = x.UserId
+                }).ToList();
+
+            return userAccounts;
+        }
+
+        public AccountModel GetAccount(int id)
         {
             Account account = Repository.GetAll().FirstOrDefault(x => x.Id == id);
 
@@ -49,24 +69,64 @@ namespace Application
             return new AccountModel()
             {
                 Id = account.Id,
-                Name = account.Name,
+                AccountName = account.Name,
                 Balance = account.Balance,
                 Type = account.Type,
                 UserId = account.UserId
             };
         }
 
-        public void Save(AccountModel model)
+        public AccountModel GetUserAccountByAccountName(int userId, string name)
         {
-            Account account = new Account()
+            Account account = Repository.GetAll()
+                .FirstOrDefault(x => x.UserId == userId && x.Name == name.ToUpper());
+
+            if (account == null)
+                return null;
+
+            return new AccountModel()
             {
-                UserId = model.UserId,
-                Name = model.Name,
-                Balance = model.Balance,
-                Type = model.Type
+                Id = account.Id,
+                AccountName = account.Name,
+                Balance = account.Balance,
+                Type = account.Type,
+                UserId = account.UserId
             };
-            Repository.Add(account);
-            UnitOfWork.Save();
+        }
+
+        public TransactionStatus Save(AccountModel model)
+        {
+            var result = new TransactionStatus();
+            
+            if(Repository.GetAll()
+                .Any(x => x.UserId == model.UserId && x.Name == model.AccountName))
+            {
+                result.UpdateMessage("Account already existing for user.");
+            }
+            else
+            {
+                Account account = new Account()
+                {
+                    Name = model.AccountName.ToUpper(),
+                    Balance = model.Balance,
+                    Type = model.Type,
+                    UserId = model.UserId
+                };
+                Repository.Add(account);
+
+                try
+                {
+                    UnitOfWork.Save();
+                    result.TransactionSuccess();
+                }
+                catch (Exception ex)
+                {
+                    result.UpdateMessage(ex.Message);
+                    throw;
+                }
+            }            
+
+            return result;
         }
     }
 }

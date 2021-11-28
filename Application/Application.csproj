@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IAccountLogic.cs" />
     <Compile Include="Interfaces\IAppUserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransactionStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">

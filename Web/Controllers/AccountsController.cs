@@ -1,17 +1,65 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
+﻿using Application.Interfaces;
+using Model;
+using System;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 using Web.Models.Base;
 
 namespace Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [RoutePrefix("api/Account")]
     public class AccountsController : ApiController
     {
+        private IAccountLogic AccountLogic { get; }
+
+        public AccountsController(IAccountLogic logic)
+        {
+            AccountLogic = logic;
+        }
+
+        [Route("Create")]
+        public async Task<IHttpActionResult> Create(AccountCreationBindingModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var result = AccountLogic.Save(new AccountModel()
+                {
+                    UserId = model.UserId,
+                    AccountName = model.AccountName,
+                    Balance = model.Balance,
+                    Type = "Savings"
+                });
+
+                if (result.IsSuccess)
+                    return Ok();
+                else
+                    return BadRequest(result.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Internal Server Error");
+            }
+        }
+
+        [HttpGet]
+        [Route("List")]
+        public async Task<IHttpActionResult> GetList(GetUserAccountList model)
+        {
+            try
+            {
+                var list = AccountLogic.GetUserAccounts(model.UserId);
+                return Ok(list);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+                throw;
+            }
+        }
 
 
         #region OldControllerLogic

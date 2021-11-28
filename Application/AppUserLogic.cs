@@ -19,34 +19,34 @@ namespace Application
             Repository = genericRepository;
         }
 
-        public void Save(AppUserModel userModel)
+        public TransactionStatus Save(AppUserModel userModel)
         {
-            if (Repository.GetAll().Any(x => x.EmailAddress == userModel.EmailAddress))
-                throw new Exception("Email already used.");
+            var result = new TransactionStatus();
 
-            AppUser appUser = new AppUser() { 
-                Id = userModel.Id,
-                FirstName = userModel.FirstName,
-                LastName = userModel.LastName,
-                EmailAddress= userModel.EmailAddress
-            };
-            Repository.Add(appUser);
-            UnitOfWork.Save();
+            if (Repository.GetAll().Any(x => x.EmailAddress == userModel.EmailAddress))
+            {
+                result.UpdateMessage("Email already used.");
+            }
+            else
+            {
+                AppUser appUser = new AppUser()
+                {
+                    Id = userModel.Id,
+                    FirstName = userModel.FirstName,
+                    LastName = userModel.LastName,
+                    EmailAddress = userModel.EmailAddress
+                };
+                Repository.Add(appUser);
+                UnitOfWork.Save();
+                result.TransactionSuccess();
+            }
+
+            return result;
         }
 
         public void Dispose()
         {
             UnitOfWork.Dispose();
-        }
-
-        public AppUserModel Get(int id)
-        {
-            AppUser appUser = Repository.GetAll().FirstOrDefault(x => x.Id == id);
-
-            if (appUser == null)
-                return null;
-            
-            return CreateUserModel(appUser);
         }
 
         public AppUserModel GetByEmailAddress(string emailAddress)
@@ -56,11 +56,7 @@ namespace Application
             if (appUser == null)
                 return null;
 
-            return CreateUserModel(appUser);
-        }
 
-        private AppUserModel CreateUserModel(AppUser appUser)
-        {
             return new AppUserModel()
             {
                 Id = appUser.Id,
