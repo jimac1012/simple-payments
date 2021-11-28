@@ -8,6 +8,12 @@ namespace Domain
 
     public partial class Transaction
     {
+        public Transaction()
+        {
+            TransactionDate = DateTime.UtcNow;
+            DateCreated = DateTime.UtcNow;
+        }
+
         public int Id { get; set; }
 
         [Required]

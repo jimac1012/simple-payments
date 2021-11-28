@@ -44,11 +44,13 @@ namespace Application
                 LastName = userModel.LastName,
                 EmailAddress= userModel.EmailAddress
             };
+            UserRepository.Add(appUser);
+            UnitOfWork.Save();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            UnitOfWork.Dispose();
         }
     }
 }
