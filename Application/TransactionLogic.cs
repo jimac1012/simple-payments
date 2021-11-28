@@ -31,24 +31,17 @@ namespace Application
             UnitOfWork.Dispose();
         }
 
-        private Transaction SaveTransaction(TransactionalModel model)
+        private Transaction SaveTransaction(TransactionalModel model, string type = "")
         {
             var transaction = new Transaction()
             {
                 Amount = model.Amount,
                 AccountId = model.AccountId,
-                Status = "Closed"
+                Status = "Closed",
+                TransactionFee = model.TransactionFee,
+                TransactionType = type,
+                Note = model.Note
             };
-
-            //try
-            //{
-            //    TransactionRepository.Add(transaction);
-            //    UnitOfWork.Save();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw;
-            //}
 
             return transaction;
         }
@@ -67,7 +60,7 @@ namespace Application
 
             try
             {
-                var transaction = SaveTransaction(model);
+                var transaction = SaveTransaction(model, "Credit");
                 TransactionRepository.Add(transaction);
 
                 account.Balance += transaction.Amount;
@@ -92,16 +85,16 @@ namespace Application
 
             if (model.Amount <= 0)
                 result.UpdateMessage("Transaction Invalid. Amount Cannot Be Greater Than Or Equal To Zero (0).");
-            else if (account.Balance < model.Amount)
+            else if (account.Balance < model.Amount + model.TransactionFee)
                 result.UpdateMessage("Transaction Invalid. Transaction Amount Greater Than Balance.");
             else
             {
                 try
                 {
-                    var transaction = SaveTransaction(model);
+                    var transaction = SaveTransaction(model, "Debit");
                     TransactionRepository.Add(transaction);
 
-                    account.Balance -= transaction.Amount;
+                    account.Balance -= (transaction.Amount + transaction.TransactionFee ?? 0);
                     AccountRepository.Update(account);
                     UnitOfWork.Save();
                     result.TransactionSuccess();

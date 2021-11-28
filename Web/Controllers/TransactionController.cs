@@ -23,7 +23,9 @@ namespace Web.Controllers
             {
                 UserId = model.UserId,
                 AccountId = model.AccountId,
-                Amount = model.Amount
+                Amount = model.Amount,
+                TransactionFee = model.TransactionFee,
+                Note = model.Note
             };
         }
 

@@ -26,6 +26,9 @@ namespace Domain
         [Column(TypeName = "money")]
         public decimal? TransactionFee { get; set; }
 
+        [StringLength(20)]
+        public string TransactionType { get; set; }
+
         [StringLength(50)]
         public string Note { get; set; }
 

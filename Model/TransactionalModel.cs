@@ -13,5 +13,9 @@ namespace Model
         public int AccountId { get; set; }
 
         public decimal Amount { get; set; }
+
+        public decimal TransactionFee { get; set; }
+
+        public string Note { get; set; }
     }
 }
