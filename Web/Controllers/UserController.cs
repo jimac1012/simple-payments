@@ -11,12 +11,11 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Web.Models.Base;
-using Web.Models.Manager;
 
 namespace Web.Controllers
 {
-    [Authorize]
-    [RoutePrefix("api/Account")]
+    //[Authorize]
+    [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         private const string LocalLoginProvider = "Local";
@@ -127,21 +126,7 @@ namespace Web.Controllers
             {
                 return GetErrorResult(result);
             }
-
-            var newUser = new AppUser()
-            {
-                Id = user.Id,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                EmailAddress = model.Email
-            };
-
-            if (AppUserManager.Create(newUser))
-            {
-                return Ok();
-            }
-
-            return GetErrorResult(result);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

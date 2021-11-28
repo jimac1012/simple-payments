@@ -5,7 +5,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using Web.Data;
 using Web.Models.Base;
 
 namespace Web.Controllers
@@ -13,105 +12,109 @@ namespace Web.Controllers
     [Authorize]
     public class AccountsController : ApiController
     {
-        private WebDBContext db = new WebDBContext();
 
-        // GET: api/Accounts
-        public IQueryable<Account> GetAccounts()
-        {
-            return db.Accounts;
-        }
 
-        // GET: api/Accounts/5
-        [ResponseType(typeof(Account))]
-        public async Task<IHttpActionResult> GetAccount(int id)
-        {
-            Account account = await db.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+        #region OldControllerLogic
+        //private WebDBContext db = new WebDBContext();
 
-            return Ok(account);
-        }
+        //// GET: api/Accounts
+        //public IQueryable<Account> GetAccounts()
+        //{
+        //    return db.Accounts;
+        //}
 
-        // PUT: api/Accounts/5
-        [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutAccount(int id, Account account)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// GET: api/Accounts/5
+        //[ResponseType(typeof(Account))]
+        //public async Task<IHttpActionResult> GetAccount(int id)
+        //{
+        //    Account account = await db.Accounts.FindAsync(id);
+        //    if (account == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (id != account.Id)
-            {
-                return BadRequest();
-            }
+        //    return Ok(account);
+        //}
 
-            db.Entry(account).State = EntityState.Modified;
+        //// PUT: api/Accounts/5
+        //[ResponseType(typeof(void))]
+        //public async Task<IHttpActionResult> PutAccount(int id, Account account)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            try
-            {
-                await db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccountExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    if (id != account.Id)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    db.Entry(account).State = EntityState.Modified;
 
-        // POST: api/Accounts
-        [ResponseType(typeof(Account))]
-        public async Task<IHttpActionResult> PostAccount(Account account)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //    try
+        //    {
+        //        await db.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!AccountExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            db.Accounts.Add(account);
-            await db.SaveChangesAsync();
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
-            return CreatedAtRoute("DefaultApi", new { id = account.Id }, account);
-        }
+        //// POST: api/Accounts
+        //[ResponseType(typeof(Account))]
+        //public async Task<IHttpActionResult> PostAccount(Account account)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-        // DELETE: api/Accounts/5
-        [ResponseType(typeof(Account))]
-        public async Task<IHttpActionResult> DeleteAccount(int id)
-        {
-            Account account = await db.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
+        //    db.Accounts.Add(account);
+        //    await db.SaveChangesAsync();
 
-            db.Accounts.Remove(account);
-            await db.SaveChangesAsync();
+        //    return CreatedAtRoute("DefaultApi", new { id = account.Id }, account);
+        //}
 
-            return Ok(account);
-        }
+        //// DELETE: api/Accounts/5
+        //[ResponseType(typeof(Account))]
+        //public async Task<IHttpActionResult> DeleteAccount(int id)
+        //{
+        //    Account account = await db.Accounts.FindAsync(id);
+        //    if (account == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //    db.Accounts.Remove(account);
+        //    await db.SaveChangesAsync();
 
-        private bool AccountExists(int id)
-        {
-            return db.Accounts.Count(e => e.Id == id) > 0;
-        }
+        //    return Ok(account);
+        //}
+
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
+
+        //private bool AccountExists(int id)
+        //{
+        //    return db.Accounts.Count(e => e.Id == id) > 0;
+        //}
+        #endregion
     }
 }

@@ -28,5 +28,7 @@ namespace Web.Models.Base
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Model.AppUserModel> AppUserModels { get; set; }
     }
 }
