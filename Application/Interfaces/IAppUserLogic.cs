@@ -1,17 +1,14 @@
 ﻿using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
     public interface IAppUserLogic
     {
-        List<AppUserModel> GetData();
+        AppUserModel GetByEmailAddress(string emailAddress);
 
-        void SaveData(AppUserModel userModel);
+        AppUserModel Get(int id);
+
+        void Save(AppUserModel userModel);
 
         void Dispose();
     }

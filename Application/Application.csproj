@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountLogic.cs" />
     <Compile Include="AppUserLogic.cs" />
+    <Compile Include="Interfaces\IAccountLogic.cs" />
     <Compile Include="Interfaces\IAppUserLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

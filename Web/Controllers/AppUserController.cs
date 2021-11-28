@@ -1,5 +1,9 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Threading.Tasks;
+using System.Web.Http;
 using Application.Interfaces;
+using Model;
+using Web.Models.Base;
 
 namespace Web.Controllers
 {
@@ -13,12 +17,41 @@ namespace Web.Controllers
             AppUserLogic = userLogic;
         }
 
-        //[Route("Test")]
-        //public IEnumerable<AppUserModel> Get()
-        //{
-        //    var appUserModels = AppUserLogic.GetData();
-        //    return appUserModels;
-        //}
+        [Route("Register")]
+        public async Task<IHttpActionResult> Register(AppUserBindingModel model)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                AppUserLogic.Save(new AppUserModel()
+                {
+                    EmailAddress = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                });
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Internal Server Error");
+            }
+        }
+
+        [Route("GetInfo")]
+        public AppUserModel GetInfo(GetInfoBindingModel model)
+        {
+            var user = AppUserLogic.GetByEmailAddress(model.EmailAddress);
+            return new AppUserModel()
+            {
+                Id = user.Id,
+                EmailAddress = user.EmailAddress,
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+        }
 
         #region OldLogic
         //// GET: api/AppUser/5

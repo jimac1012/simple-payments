@@ -3,10 +3,7 @@ using Domain;
 using Model;
 using Repository.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application
 {
@@ -14,43 +11,63 @@ namespace Application
     {
         private IUnitOfWork UnitOfWork { get; }
         
-        private IGenericRepository<AppUser> UserRepository { get; }
+        private IGenericRepository<AppUser> Repository { get; }
 
         public AppUserLogic(IUnitOfWork unitOfWork, IGenericRepository<AppUser> genericRepository)
         {
             UnitOfWork = unitOfWork;
-            UserRepository = genericRepository;
+            Repository = genericRepository;
         }
 
-        public List<AppUserModel> GetData()
+        public void Save(AppUserModel userModel)
         {
-            List<AppUser> appUsers = UserRepository.GetAll().ToList();
-            List<AppUserModel> userModels =  appUsers.Select(x => 
-                new AppUserModel() { 
-                    Id = x.Id,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    EmailAddress = x.EmailAddress
-                }).ToList();
+            if (Repository.GetAll().Any(x => x.EmailAddress == userModel.EmailAddress))
+                throw new Exception("Email already used.");
 
-            return userModels;
-        }
-
-        public void SaveData(AppUserModel userModel)
-        {
             AppUser appUser = new AppUser() { 
                 Id = userModel.Id,
                 FirstName = userModel.FirstName,
                 LastName = userModel.LastName,
                 EmailAddress= userModel.EmailAddress
             };
-            UserRepository.Add(appUser);
+            Repository.Add(appUser);
             UnitOfWork.Save();
         }
 
         public void Dispose()
         {
             UnitOfWork.Dispose();
+        }
+
+        public AppUserModel Get(int id)
+        {
+            AppUser appUser = Repository.GetAll().FirstOrDefault(x => x.Id == id);
+
+            if (appUser == null)
+                return null;
+            
+            return CreateUserModel(appUser);
+        }
+
+        public AppUserModel GetByEmailAddress(string emailAddress)
+        {
+            AppUser appUser = Repository.GetAll().FirstOrDefault(x => x.EmailAddress == emailAddress);
+
+            if (appUser == null)
+                return null;
+
+            return CreateUserModel(appUser);
+        }
+
+        private AppUserModel CreateUserModel(AppUser appUser)
+        {
+            return new AppUserModel()
+            {
+                Id = appUser.Id,
+                FirstName = appUser.FirstName,
+                LastName = appUser.LastName,
+                EmailAddress = appUser.EmailAddress
+            };
         }
     }
 }
