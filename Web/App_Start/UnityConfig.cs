@@ -1,6 +1,12 @@
+using Application;
+using Application.Interfaces;
+using Repository;
+using Repository.Interfaces;
 using System;
-
+using System.Web.Http;
+using System.Web.Mvc;
 using Unity;
+using Unity.Lifetime;
 
 namespace Web
 {
@@ -42,6 +48,14 @@ namespace Web
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
+
+            container.RegisterType<IUnitOfWork, UnitOfWork>(new PerResolveLifetimeManager());
+            container.RegisterType(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            container.RegisterType<IAppUserLogic, AppUserLogic>();
+
+
+            //DependencyResolver.SetResolver(new Unity.Mvc.UnityDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new Unity.WebApi.UnityDependencyResolver(container);
         }
     }
 }

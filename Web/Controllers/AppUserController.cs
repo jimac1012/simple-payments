@@ -1,24 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Http.Description;
-using Model;
-using Web.Models.Base;
+﻿using System.Web.Http;
 using Application.Interfaces;
 
 namespace Web.Controllers
 {
+    [RoutePrefix("api/AppUser")]
     public class AppUserController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-
         private IAppUserLogic AppUserLogic { get; }
 
         public AppUserController(IAppUserLogic userLogic)
@@ -26,21 +13,14 @@ namespace Web.Controllers
             AppUserLogic = userLogic;
         }
 
-        public IQueryable<AppUserModel> Get()
-        {
-            IQueryable<AppUserModel> appUserModels = (IQueryable<AppUserModel>)AppUserLogic.GetData();
-
-            return appUserModels;
-        }
-
+        //[Route("Test")]
+        //public IEnumerable<AppUserModel> Get()
+        //{
+        //    var appUserModels = AppUserLogic.GetData();
+        //    return appUserModels;
+        //}
 
         #region OldLogic
-        //// GET: api/AppUser
-        public IQueryable<AppUserModel> GetAppUserModels()
-        {
-            return db.AppUserModels;
-        }
-
         //// GET: api/AppUser/5
         //[ResponseType(typeof(AppUserModel))]
         //public async Task<IHttpActionResult> GetAppUserModel(int id)
