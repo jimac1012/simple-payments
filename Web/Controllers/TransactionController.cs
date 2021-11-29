@@ -78,7 +78,11 @@ namespace Web.Controllers
         {
             try
             {
-                var list = TransactionLogic.GetAllPerAccount(model.UserId, model.AccountId);
+                var list = TransactionLogic.GetAllPerAccount(new GetAllAccountTransactionsModel()
+                {
+                    UserId = model.UserId,
+                    AccountId = model.AccountId
+                });
                 return Ok(list);
             }
             catch (Exception ex)

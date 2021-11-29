@@ -31,7 +31,7 @@ namespace Application
             UnitOfWork.Dispose();
         }
 
-        private Transaction CreateTransactionModel(TransactionalModel model, string type = "")
+        private Transaction CreateTransactionModel(TransactionalModel model, TransactionType type = TransactionType.Credit)
         {
             var transaction = new Transaction()
             {
@@ -39,7 +39,7 @@ namespace Application
                 AccountId = model.AccountId,
                 Status = "Closed",
                 TransactionFee = model.TransactionFee,
-                TransactionType = type,
+                TransactionType = type.ToString(),
                 Note = model.Note
             };
 
@@ -61,7 +61,7 @@ namespace Application
                     return result;
                 }
 
-                var transaction = CreateTransactionModel(model, "Credit");
+                var transaction = CreateTransactionModel(model, TransactionType.Credit);
                 TransactionRepository.Add(transaction);
 
                 account.AddBalance(transaction.Amount);
@@ -92,7 +92,7 @@ namespace Application
                     result.UpdateMessage("Transaction Invalid. Transaction Amount Greater Than Balance.");
                 else
                 {
-                    var transaction = CreateTransactionModel(model, "Debit");
+                    var transaction = CreateTransactionModel(model, TransactionType.Debit);
                     TransactionRepository.Add(transaction);
 
                     account.DeductBalance(transaction.Amount + transaction.TransactionFee ?? 0);
@@ -109,23 +109,31 @@ namespace Application
             return result;
         }
 
-        public List<TransactionModel> GetAllPerAccount(int userId, int accountId)
+        public IList<TransactionModel> GetAllPerAccount(GetAllAccountTransactionsModel model)
         {
-            var account = GetAccount(userId, accountId);
+            try
+            {
+                var account = GetAccount(model.UserId, model.AccountId);
 
-            return TransactionRepository.GetAll()
-                .Where(x => x.AccountId == accountId)
-                .OrderByDescending(x => x.TransactionDate)
-                .Select(x => new TransactionModel()
-                {
-                    TransactionDate = x.TransactionDate,
-                    Amount = x.Amount,
-                    Status = x.Status,
-                    TransactionFee = x.TransactionFee,
-                    TransactionType = x.TransactionType,
-                    Note = x.Note
-                }
-            ).ToList();
+                return TransactionRepository.GetAll()
+                    .Where(x => x.AccountId == account.Id)
+                    .OrderByDescending(x => x.TransactionDate)
+                    .Select(x => new TransactionModel()
+                    {
+                        TransactionDate = x.TransactionDate,
+                        Amount = x.Amount,
+                        Status = x.Status,
+                        TransactionFee = x.TransactionFee,
+                        TransactionType = x.TransactionType,
+                        Note = x.Note,
+                        Id = x.Id
+                    }
+                ).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private Account GetAccount(int userId, int accountId)

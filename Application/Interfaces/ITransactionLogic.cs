@@ -9,7 +9,7 @@ namespace Application.Interfaces
 
         ITransactionStatus Debit(TransactionalModel model);
 
-        List<TransactionModel> GetAllPerAccount(int userId, int accountId);
+        IList<TransactionModel> GetAllPerAccount(GetAllAccountTransactionsModel model);
 
         void Dispose();
     }

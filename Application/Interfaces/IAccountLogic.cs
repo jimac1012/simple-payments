@@ -7,7 +7,7 @@ namespace Application.Interfaces
     {
         AccountModel GetAccount(int id);
 
-        List<AccountModel> GetUserAccounts(int userId);
+        IList<AccountModel> GetUserAccounts(int userId);
 
         ITransactionStatus Save(AccountModel model);
 

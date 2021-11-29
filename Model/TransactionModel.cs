@@ -15,5 +15,7 @@ namespace Model
         public string Status { get; set; }
 
         public string Note { get; set; }
+
+        public int Id { get; set; }
     }
 }

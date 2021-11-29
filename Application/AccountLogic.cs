@@ -40,7 +40,7 @@ namespace Application
                 ).ToList();
         }
 
-        public List<AccountModel> GetUserAccounts(int userId)
+        public IList<AccountModel> GetUserAccounts(int userId)
         {
             if (!Repository.GetAll().Any(x => x.UserId == userId))
                 throw new Exception("User does not exists.");
