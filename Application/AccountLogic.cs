@@ -94,7 +94,7 @@ namespace Application
             };
         }
 
-        public TransactionStatus Save(AccountModel model)
+        public ITransactionStatus Save(AccountModel model)
         {
             var result = new TransactionStatus();
             

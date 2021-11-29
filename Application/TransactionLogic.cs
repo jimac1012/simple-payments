@@ -17,7 +17,9 @@ namespace Application
         private IGenericRepository<Account> AccountRepository { get; }
 
 
-        public TransactionLogic(IUnitOfWork unitOfWork, IGenericRepository<Transaction> transactionRepository, IGenericRepository<Account> accountRepository)
+        public TransactionLogic(IUnitOfWork unitOfWork, 
+            IGenericRepository<Transaction> transactionRepository, 
+            IGenericRepository<Account> accountRepository)
         {
             UnitOfWork = unitOfWork;
             TransactionRepository = transactionRepository;
@@ -44,20 +46,21 @@ namespace Application
             return transaction;
         }
 
-        public TransactionStatus Credit(TransactionalModel model)
+        public ITransactionStatus Credit(TransactionalModel model)
         {
             var result = new TransactionStatus();
 
-            var account = GetAccount(model.UserId, model.AccountId);
-
-            if (model.Amount <= 0)
-            {
-                result.UpdateMessage("Transaction Invalid. Amount Cannot Be Greater Than Or Equal To Zero (0).");
-                return result;
-            }
-
             try
             {
+                var account = GetAccount(model.UserId, model.AccountId);
+
+                if (model.Amount <= 0)
+                {
+                    result.UpdateMessage("Transaction Invalid. " +
+                        "Amount Cannot Be Greater Than Or Equal To Zero (0).");
+                    return result;
+                }
+
                 var transaction = CreateTransactionModel(model, "Credit");
                 TransactionRepository.Add(transaction);
 
@@ -69,25 +72,25 @@ namespace Application
             catch (Exception ex)
             {
                 result.UpdateMessage(ex.Message);
-                throw;
             }
 
             return result;
         }
 
-        public TransactionStatus Debit(TransactionalModel model)
+        public ITransactionStatus Debit(TransactionalModel model)
         {
             var result = new TransactionStatus();
 
-            var account = GetAccount(model.UserId, model.AccountId);
-
-            if (model.Amount <= 0)
-                result.UpdateMessage("Transaction Invalid. Amount Cannot Be Greater Than Or Equal To Zero (0).");
-            else if (account.Balance < model.Amount + model.TransactionFee)
-                result.UpdateMessage("Transaction Invalid. Transaction Amount Greater Than Balance.");
-            else
+            try
             {
-                try
+                var account = GetAccount(model.UserId, model.AccountId);
+
+                if (model.Amount <= 0)
+                    result.UpdateMessage("Transaction Invalid. " +
+                        "Amount Cannot Be Greater Than Or Equal To Zero (0).");
+                else if (account.Balance < model.Amount + model.TransactionFee)
+                    result.UpdateMessage("Transaction Invalid. Transaction Amount Greater Than Balance.");
+                else
                 {
                     var transaction = CreateTransactionModel(model, "Debit");
                     TransactionRepository.Add(transaction);
@@ -97,11 +100,10 @@ namespace Application
                     UnitOfWork.Save();
                     result.TransactionSuccess();
                 }
-                catch (Exception ex)
-                {
-                    result.UpdateMessage(ex.Message);
-                    throw;
-                }
+            }
+            catch (Exception ex)
+            {
+                result.UpdateMessage(ex.Message);
             }
 
             return result;
@@ -128,13 +130,20 @@ namespace Application
 
         private Account GetAccount(int userId, int accountId)
         {
-            var account = AccountRepository.GetAll()
-                .FirstOrDefault(x => x.Id == accountId && x.UserId == userId);
+            try
+            {
+                var account = AccountRepository.GetAll()
+                        .FirstOrDefault(x => x.Id == accountId && x.UserId == userId);
 
-            if (account == null)
-                throw new Exception("Account Does Not Exists.");
+                if (account == null)
+                    throw new Exception("Account Does Not Exists.");
 
-            return account;
+                return account;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

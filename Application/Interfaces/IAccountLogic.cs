@@ -9,7 +9,7 @@ namespace Application.Interfaces
 
         List<AccountModel> GetUserAccounts(int userId);
 
-        TransactionStatus Save(AccountModel model);
+        ITransactionStatus Save(AccountModel model);
 
         void Dispose();
     }

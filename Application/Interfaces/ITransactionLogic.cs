@@ -5,9 +5,9 @@ namespace Application.Interfaces
 {
     public interface ITransactionLogic
     {
-        TransactionStatus Credit(TransactionalModel model);
+        ITransactionStatus Credit(TransactionalModel model);
 
-        TransactionStatus Debit(TransactionalModel model);
+        ITransactionStatus Debit(TransactionalModel model);
 
         List<TransactionModel> GetAllPerAccount(int userId, int accountId);
 

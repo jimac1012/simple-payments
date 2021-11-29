@@ -1,6 +1,8 @@
-﻿namespace Application
+﻿using Application.Interfaces;
+
+namespace Application
 {
-    public class TransactionStatus
+    public class TransactionStatus : ITransactionStatus
     {
         public TransactionStatus()
         {

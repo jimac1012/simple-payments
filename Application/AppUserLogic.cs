@@ -18,7 +18,7 @@ namespace Application
             Repository = genericRepository;
         }
 
-        public TransactionStatus Save(AppUserModel userModel)
+        public ITransactionStatus Save(AppUserModel userModel)
         {
             var result = new TransactionStatus();
 
@@ -50,7 +50,8 @@ namespace Application
 
         public AppUserModel GetByEmailAddress(string emailAddress)
         {
-            AppUser appUser = Repository.GetAll().FirstOrDefault(x => x.EmailAddress == emailAddress);
+            AppUser appUser = Repository.GetAll()
+                .FirstOrDefault(x => x.EmailAddress == emailAddress);
 
             if (appUser == null)
                 return null;
