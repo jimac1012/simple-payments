@@ -11,13 +11,4 @@
     {
         public int UserId { get; set; }
     }
-
-    public class AccountTransaction
-    {
-        public int UserId { get; set; }
-
-        public int AccountId { get; set; }
-
-        public decimal Amount { get; set; }
-    }
 }
