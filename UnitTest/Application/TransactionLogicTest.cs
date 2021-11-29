@@ -6,11 +6,14 @@ using Repository.Interfaces;
 using System.Collections.Generic;
 using Xunit;
 using Model;
+using Application.Interfaces;
+using System.Data.Entity;
 
 namespace UnitTest.Application
 {
     public class TransactionLogicTest
     {
+        private Mock<PaymentContext> MockContext { get; }
         private Mock<IUnitOfWork> MockUnitOfWork { get; }
         private Mock<IGenericRepository<Transaction>> MockTransactionRepo { get; }
         private Mock<IGenericRepository<Account>> MockAccountRepo { get; }
@@ -20,10 +23,11 @@ namespace UnitTest.Application
             MockUnitOfWork = new Mock<IUnitOfWork>();
             MockTransactionRepo = new Mock<IGenericRepository<Transaction>>();
             MockAccountRepo = new Mock<IGenericRepository<Account>>();
+            MockContext = new Mock<PaymentContext>();
         }
 
         [Fact]
-        public void Credit_Account()
+        public void Transaction_Credit()
         {
             // Arrange
             var user = new AppUser()
@@ -60,11 +64,9 @@ namespace UnitTest.Application
             transactionLogic.Credit(model);
 
             // Assert
-            var transaction = Mock.Get(MockTransactionRepo.Object.GetAll().FirstOrDefault()).Object;
 
-            Assert.NotNull(transaction);
-            Assert.Equal(model.AccountId, transaction.AccountId);
-            Assert.Equal(model.Amount, transaction.Amount);
+            MockTransactionRepo.Verify(m => m.Add(It.IsAny<Transaction>()), Times.Once());
+            MockUnitOfWork.Verify(m => m.Save(), Times.Once());
         }
     }
 }

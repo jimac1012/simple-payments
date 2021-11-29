@@ -29,7 +29,7 @@ namespace Application
             UnitOfWork.Dispose();
         }
 
-        private Transaction SaveTransaction(TransactionalModel model, string type = "")
+        private Transaction CreateTransactionModel(TransactionalModel model, string type = "")
         {
             var transaction = new Transaction()
             {
@@ -58,7 +58,7 @@ namespace Application
 
             try
             {
-                var transaction = SaveTransaction(model, "Credit");
+                var transaction = CreateTransactionModel(model, "Credit");
                 TransactionRepository.Add(transaction);
 
                 account.AddBalance(transaction.Amount);
@@ -89,7 +89,7 @@ namespace Application
             {
                 try
                 {
-                    var transaction = SaveTransaction(model, "Debit");
+                    var transaction = CreateTransactionModel(model, "Debit");
                     TransactionRepository.Add(transaction);
 
                     account.DeductBalance(transaction.Amount + transaction.TransactionFee ?? 0);
